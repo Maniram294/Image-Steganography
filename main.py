@@ -236,16 +236,7 @@ class Stegno:
             ep.grid(row=1)
             f2.destroy()
 
-    def enc_fun(self, text_area, myimg):
-        data = text_area.get("1.0", "end-1c")
-        if len(data) == 0:
-            messagebox.showinfo("Alert", "Kindly enter text in TextBox")
-        else:
-            newimg = myimg.copy()
-            self.encode_enc(newimg, data)
-            temp = os.path.splitext(os.path.basename(myimg.filename))[0]
-            newimg.save(tkinter.filedialog.asksaveasfilename(initialfile=temp, filetypes=([('png', '*.png')]), defaultextension=".png"))
-            messagebox.showinfo("Success", "Encoding Successful\nFile is saved.")
+
 
     def mod_pix(self, pixels, data):
         """Modifies pixels to encode data."""
@@ -281,6 +272,18 @@ class Stegno:
             yield tuple(pixel[:3])
             yield tuple(pixel[3:6])
             yield tuple(pixel[6:9])
+
+    def enc_fun(self, text_area, myimg):
+        data = text_area.get("1.0", "end-1c")
+        if len(data) == 0:
+            messagebox.showinfo("Alert", "Kindly enter text in TextBox")
+        else:
+            newimg = myimg.copy()
+            self.encode_enc(newimg, data)
+            temp = os.path.splitext(os.path.basename(myimg.filename))[0]
+            newimg.save(tkinter.filedialog.asksaveasfilename(initialfile=temp, filetypes=([('png', '*.png')]),
+                                                             defaultextension=".png"))
+            messagebox.showinfo("Success", "Encoding Successful\nFile is saved")
 
     def gen_data(self, data):
         """Generates binary data from the input string."""
